@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang-root>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Biochem — 사용 안내 / Usage Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Noto+Serif:wght@500;600&family=Noto+Serif+KR:wght@500;600&family=Noto+Serif+Thai:wght@500;600&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --moss-900:#132419;
+    --moss-800:#1c3527;
+    --moss-600:#3a6349;
+    --gold:#c69a3d;
+    --soil:#5b4530;
+    --paper:#f2efe3;
+    --paper-2:#e9e4d2;
+    --ink:#1c2a20;
+    --ink-soft:#4b5a4f;
+    --ripple: rgba(198,154,61,0.35);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans','Noto Sans KR','Noto Sans Thai',sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .serif{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;}
+  .brand{font-family:'Fraunces',serif; letter-spacing:0.02em;}
+  [data-lang]{display:none;}
+  body.lang-KO [data-lang="KO"],
+  body.lang-EN [data-lang="EN"],
+  body.lang-VI [data-lang="VI"],
+  body.lang-TH [data-lang="TH"]{display:revert;}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:20;background:var(--moss-900);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;color:var(--paper);}
+  .topbar .brand{font-size:1.15rem;font-weight:600;color:var(--paper);}
+  .topbar .brand span{color:var(--gold);}
+  .langs{display:flex;gap:6px;}
+  .langs button{
+    font-family:'Fraunces',serif;font-size:0.78rem;font-weight:600;
+    background:transparent;border:1px solid rgba(242,239,227,0.35);
+    color:rgba(242,239,227,0.75);border-radius:999px;padding:6px 12px;
+    cursor:pointer;transition:all .2s ease;letter-spacing:.03em;}
+  .langs button.active{background:var(--gold);border-color:var(--gold);color:var(--moss-900);}
+  .langs button:hover{border-color:var(--gold);color:var(--paper);}
+
+  /* hero */
+  .hero{background:var(--moss-900);color:var(--paper);padding:56px 20px 40px;
+    position:relative;overflow:hidden;}
+  .hero-inner{max-width:640px;margin:0 auto;position:relative;z-index:2;}
+  .eyebrow{font-family:'Fraunces',serif;font-size:0.8rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
+  .hero h1{font-size:2rem;line-height:1.28;margin:0 0 14px;font-weight:600;}
+  .hero p{color:#cdd7ce;font-size:1rem;line-height:1.6;margin:0;max-width:46ch;}
+  .ripples{position:absolute;right:-60px;top:-40px;width:280px;height:280px;opacity:.5;}
+
+  .cansvg{display:block;margin:32px auto 0;width:150px;}
+
+  /* sections */
+  section.block{max-width:640px;margin:0 auto;padding:44px 20px;}
+  .notice{background:var(--paper-2);border-left:3px solid var(--gold);
+    padding:14px 16px;border-radius:4px;font-size:0.85rem;color:var(--ink-soft);
+    line-height:1.6;margin-bottom:8px;}
+
+  /* mixing ratio card */
+  .ratio-card{background:var(--moss-800);color:var(--paper);
+    border-radius:14px;padding:32px 24px;display:flex;gap:24px;
+    align-items:center;flex-wrap:wrap;}
+  .ratio-card svg{flex:0 0 auto;width:96px;}
+  .ratio-card h2{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;
+    font-size:1.15rem;margin:0 0 8px;font-weight:600;}
+  .ratio-num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--gold);
+    font-weight:600;margin:2px 0 8px;}
+  .ratio-card p{margin:0;font-size:0.88rem;color:#d3dccf;line-height:1.6;}
+
+  h2.section-title{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;
+    font-size:1.4rem;font-weight:600;margin:0 0 26px;}
+
+  /* crop cards */
+  .crop-card{background:#fff;border:1px solid var(--paper-2);border-radius:12px;
+    padding:20px 22px;margin-bottom:14px;}
+  .crop-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .crop-name{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;
+    font-weight:600;font-size:1.08rem;color:var(--ink);}
+  .crop-examples{font-size:0.82rem;color:var(--ink-soft);}
+  .badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .badge{background:var(--paper);border:1px solid var(--paper-2);border-radius:8px;
+    padding:6px 10px;font-size:0.78rem;color:var(--ink-soft);}
+  .badge b{color:var(--moss-800);font-family:'Fraunces',serif;font-size:0.95rem;
+    font-weight:600;margin-right:3px;}
+  .effect-tags{display:flex;gap:6px;flex-wrap:wrap;}
+  .tag{background:var(--moss-800);color:var(--paper);border-radius:999px;
+    padding:4px 12px;font-size:0.76rem;}
+  .caution-card{background:var(--soil);color:#f2efe3;border-radius:12px;
+    padding:22px 24px;margin-top:8px;}
+  .caution-card h3{font-family:'Fraunces',serif;margin:0 0 8px;font-size:0.95rem;
+    color:var(--gold);letter-spacing:.03em;text-transform:uppercase;}
+  .caution-card p{margin:0 0 4px;font-size:0.86rem;line-height:1.6;color:#e8e0cf;}
+  .note-block{font-size:0.82rem;color:var(--ink-soft);line-height:1.7;margin-top:18px;}
+
+  /* steps */
+  .step{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--paper-2);}
+  .step:last-child{border-bottom:none;}
+  .step-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;
+    color:var(--gold);flex:0 0 46px;}
+  .step h3{margin:2px 0 6px;font-size:1.02rem;font-weight:700;color:var(--ink);}
+  .step p{margin:0;font-size:0.92rem;line-height:1.65;color:var(--ink-soft);}
+
+  footer{background:var(--soil);color:#ece4d6;padding:34px 20px;}
+  .footer-inner{max-width:640px;margin:0 auto;}
+  footer h3{font-family:'Fraunces',serif;margin:0 0 6px;color:var(--paper);font-size:1.05rem;}
+  footer p{margin:0 0 4px;font-size:0.85rem;line-height:1.6;color:#d8cfbe;}
+  .caution{margin-top:18px;padding-top:18px;border-top:1px solid rgba(236,228,214,0.2);
+    font-size:0.78rem;color:#c7bda8;line-height:1.7;}
+
+  @media (max-width:480px){
+    .hero h1{font-size:1.6rem;}
+    .ratio-card{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body class="lang-KO">
+
+  <div class="topbar">
+    <div class="brand">GREEN<span>BIOCHEM</span></div>
+    <div class="langs">
+      <button data-setlang="KO" class="active">KR</button>
+      <button data-setlang="EN">EN</button>
+      <button data-setlang="VI">VI</button>
+      <button data-setlang="TH">TH</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <svg class="ripples" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="none" stroke="#c69a3d" stroke-opacity="0.5" stroke-width="2"/><circle cx="100" cy="100" r="55" fill="none" stroke="#c69a3d" stroke-opacity="0.35" stroke-width="2"/><circle cx="100" cy="100" r="80" fill="none" stroke="#c69a3d" stroke-opacity="0.2" stroke-width="2"/></svg>
+    <div class="hero-inner">
+      <p class="eyebrow" data-lang="KO">아미노산 액체비료 사용 안내</p>
+      <p class="eyebrow" data-lang="EN">Amino Acid Liquid Fertilizer — Usage Guide</p>
+      <p class="eyebrow" data-lang="VI">Hướng dẫn sử dụng phân bón lá axit amin</p>
+      <p class="eyebrow" data-lang="TH">คู่มือการใช้ปุ๋ยน้ำกรดอะมิโน</p>
+
+      <h1 data-lang="KO">올바르게 희석하고<br>제때 뿌리세요</h1>
+      <h1 data-lang="EN">Dilute it right.<br>Spray it on time.</h1>
+      <h1 data-lang="VI">Pha đúng tỷ lệ.<br>Phun đúng thời điểm.</h1>
+      <h1 data-lang="TH">ผสมให้ถูกอัตราส่วน<br>ฉีดพ่นให้ตรงเวลา</h1>
+
+      <p data-lang="KO">18종 이상의 L-형 아미노산과 NPK, 다당류, 부식산, 미량요소가 균형 있게 배합된 Green Biochem 액체비료의 표준 살포 가이드입니다.</p>
+      <p data-lang="EN">The standard application guide for Green Biochem's liquid fertilizer, formulated with 18+ types of L-amino acids, NPK, polysaccharides, humic acid, and micronutrients.</p>
+      <p data-lang="VI">Hướng dẫn sử dụng tiêu chuẩn cho phân bón lá của Green Biochem, chứa hơn 18 loại axit amin dạng L, NPK, polysaccharide, axit humic và vi lượng.</p>
+      <p data-lang="TH">คู่มือการใช้งานมาตรฐานสำหรับปุ๋ยน้ำ Green Biochem ที่มีส่วนผสมของกรดอะมิโนชนิด L มากกว่า 18 ชนิด, NPK, โพลีแซคคาไรด์, กรดฮิวมิก และธาตุอาหารรอง</p>
+
+      <svg class="cansvg" viewBox="0 0 160 120" fill="none" stroke="#c69a3d" stroke-width="2.5">
+        <path d="M20 60 h60 l25 -18 h20 v10 h-14 l-20 14 v6 h-71 z" />
+        <path d="M118 46 v14" />
+        <circle cx="126" cy="42" r="2" fill="#c69a3d" stroke="none"/>
+        <circle cx="134" cy="48" r="1.6" fill="#c69a3d" stroke="none"/>
+        <circle cx="130" cy="56" r="1.4" fill="#c69a3d" stroke="none"/>
+        <path d="M20 60 v14 a8 8 0 0 0 8 8 h44 a8 8 0 0 0 8 -8 v-14" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="ratio-card" style="margin-bottom:0;">
+      <svg viewBox="0 0 100 120" fill="none" stroke="#f2efe3" stroke-width="3">
+        <path d="M30 10 h40 v18 l22 68 a6 6 0 0 1 -6 8 h-72 a6 6 0 0 1 -6 -8 l22 -68 z"/>
+        <path d="M18 84 h64" stroke="#c69a3d"/>
+        <line x1="30" y1="10" x2="30" y2="28"/>
+        <line x1="70" y1="10" x2="70" y2="28"/>
+      </svg>
+      <div>
+        <h2 data-lang="KO">공통 희석 비율</h2>
+        <h2 data-lang="EN">Standard Dilution</h2>
+        <h2 data-lang="VI">Tỷ lệ pha chung</h2>
+        <h2 data-lang="TH">อัตราส่วนผสมมาตรฐาน</h2>
+        <div class="ratio-num">800 ~ 1,000<span style="font-size:1.3rem;font-weight:400;margin-left:6px;opacity:0.85;" data-lang="KO">배</span><span style="font-size:1.3rem;font-weight:400;margin-left:6px;opacity:0.85;" data-lang="EN">×</span><span style="font-size:1.3rem;font-weight:400;margin-left:6px;opacity:0.85;" data-lang="VI">lần</span><span style="font-size:1.3rem;font-weight:400;margin-left:6px;opacity:0.85;" data-lang="TH">เท่า</span></div>
+        <p data-lang="KO">물과 원액 비율입니다. 작물에 따라 살포 시기·횟수·기대 효과가 다르니 아래에서 해당 작물을 확인하세요.</p>
+        <p data-lang="EN">Water-to-concentrate ratio. Timing, frequency, and expected effects vary by crop — find your crop below.</p>
+        <p data-lang="VI">Tỷ lệ nước với dung dịch đậm đặc. Thời điểm, tần suất và hiệu quả khác nhau theo từng loại cây — xem bên dưới.</p>
+        <p data-lang="TH">อัตราส่วนน้ำต่อสารเข้มข้น ช่วงเวลา ความถี่ และผลลัพธ์แตกต่างกันตามชนิดพืช — ดูรายละเอียดด้านล่าง</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="section-title" data-lang="KO">작물별 사용법</h2>
+    <h2 class="section-title" data-lang="EN">Guide by Crop Type</h2>
+    <h2 class="section-title" data-lang="VI">Hướng dẫn theo loại cây trồng</h2>
+    <h2 class="section-title" data-lang="TH">คู่มือตามชนิดพืช</h2>
+
+    <!-- 곡물류 -->
+    <div class="crop-card">
+      <div class="crop-head">
+        <span class="crop-name" data-lang="KO">곡물류</span>
+        <span class="crop-name" data-lang="EN">Grains</span>
+        <span class="crop-name" data-lang="VI">Cây ngũ cốc</span>
+        <span class="crop-name" data-lang="TH">พืชธัญพืช</span>
+        <span class="crop-examples" data-lang="KO">벼 · 옥수수 · 콩 · 조 · 팥</span>
+        <span class="crop-examples" data-lang="EN">rice, corn, soybean, millet, red bean</span>
+        <span class="crop-examples" data-lang="VI">lúa, ngô, đậu tương, kê, đậu đỏ</span>
+        <span class="crop-examples" data-lang="TH">ข้าว ข้าวโพด ถั่วเหลือง ข้าวฟ่าง ถั่วแดง</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>800~1,000×</b><span data-lang="KO">희석배수</span><span data-lang="EN">dilution</span><span data-lang="VI">tỷ lệ pha</span><span data-lang="TH">อัตราเจือจาง</span></span>
+        <span class="badge"><b>3~5</b><span data-lang="KO">회 살포</span><span data-lang="EN">applications</span><span data-lang="VI">lần phun</span><span data-lang="TH">ครั้ง</span></span>
+        <span class="badge" data-lang="KO">전생육기 · 최성숙기 집중살포</span>
+        <span class="badge" data-lang="EN">Whole growth period, focus at peak ripening</span>
+        <span class="badge" data-lang="VI">Toàn bộ giai đoạn sinh trưởng, tập trung khi chín rộ</span>
+        <span class="badge" data-lang="TH">ตลอดช่วงการเจริญเติบโต เน้นช่วงสุกเต็มที่</span>
+      </div>
+      <div class="effect-tags">
+        <span class="tag" data-lang="KO">건묘육성</span><span class="tag" data-lang="KO">내병성증대</span><span class="tag" data-lang="KO">착화촉진</span><span class="tag" data-lang="KO">품질향상</span><span class="tag" data-lang="KO">수량증대</span>
+        <span class="tag" data-lang="EN">Stronger seedlings</span><span class="tag" data-lang="EN">Disease resistance</span><span class="tag" data-lang="EN">Better flowering</span><span class="tag" data-lang="EN">Higher quality</span><span class="tag" data-lang="EN">Higher yield</span>
+        <span class="tag" data-lang="VI">Cây con khỏe</span><span class="tag" data-lang="VI">Kháng bệnh tốt hơn</span><span class="tag" data-lang="VI">Ra hoa tốt hơn</span><span class="tag" data-lang="VI">Chất lượng cao hơn</span><span class="tag" data-lang="VI">Năng suất cao hơn</span>
+        <span class="tag" data-lang="TH">ต้นกล้าแข็งแรง</span><span class="tag" data-lang="TH">ต้านทานโรคดีขึ้น</span><span class="tag" data-lang="TH">ออกดอกดีขึ้น</span><span class="tag" data-lang="TH">คุณภาพดีขึ้น</span><span class="tag" data-lang="TH">ผลผลิตสูงขึ้น</span>
+      </div>
+    </div>
+
+    <!-- 과수류 -->
+    <div class="crop-card">
+      <div class="crop-head">
+        <span class="crop-name" data-lang="KO">과수류</span>
+        <span class="crop-name" data-lang="EN">Fruit Trees</span>
+        <span class="crop-name" data-lang="VI">Cây ăn quả</span>
+        <span class="crop-name" data-lang="TH">ไม้ผล</span>
+        <span class="crop-examples" data-lang="KO">사과 · 배 · 포도 · 밤</span>
+        <span class="crop-examples" data-lang="EN">apple, pear, grape, chestnut</span>
+        <span class="crop-examples" data-lang="VI">táo, lê, nho, hạt dẻ</span>
+        <span class="crop-examples" data-lang="TH">แอปเปิล สาลี่ องุ่น เกาลัด</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>800~1,000×</b><span data-lang="KO">희석배수</span><span data-lang="EN">dilution</span><span data-lang="VI">tỷ lệ pha</span><span data-lang="TH">อัตราเจือจาง</span></span>
+        <span class="badge"><b>3~5</b><span data-lang="KO">회 살포</span><span data-lang="EN">applications</span><span data-lang="VI">lần phun</span><span data-lang="TH">ครั้ง</span></span>
+        <span class="badge" data-lang="KO">개화기 · 결실기 10일 간격 집중살포</span>
+        <span class="badge" data-lang="EN">Flowering stage, every 10 days during fruit-set</span>
+        <span class="badge" data-lang="VI">Giai đoạn ra hoa, cách 10 ngày khi đậu quả</span>
+        <span class="badge" data-lang="TH">ช่วงออกดอก ทุก 10 วันช่วงติดผล</span>
+      </div>
+      <div class="effect-tags">
+        <span class="tag" data-lang="KO">수정율증대</span><span class="tag" data-lang="KO">과실비대</span><span class="tag" data-lang="KO">수확량증대</span><span class="tag" data-lang="KO">낙과방지</span>
+        <span class="tag" data-lang="EN">Higher pollination</span><span class="tag" data-lang="EN">Larger fruit</span><span class="tag" data-lang="EN">Higher yield</span><span class="tag" data-lang="EN">Less fruit drop</span>
+        <span class="tag" data-lang="VI">Thụ phấn tốt hơn</span><span class="tag" data-lang="VI">Quả to hơn</span><span class="tag" data-lang="VI">Năng suất cao hơn</span><span class="tag" data-lang="VI">Ít rụng quả</span>
+        <span class="tag" data-lang="TH">ผสมเกสรดีขึ้น</span><span class="tag" data-lang="TH">ผลใหญ่ขึ้น</span><span class="tag" data-lang="TH">ผลผลิตสูงขึ้น</span><span class="tag" data-lang="TH">ผลร่วงน้อยลง</span>
+      </div>
+    </div>
+
+    <!-- 근채류 -->
+    <div class="crop-card">
+      <div class="crop-head">
+        <span class="crop-name" data-lang="KO">근채류</span>
+        <span class="crop-name" data-lang="EN">Root Vegetables</span>
+        <span class="crop-name" data-lang="VI">Cây lấy củ</span>
+        <span class="crop-name" data-lang="TH">พืชหัว</span>
+        <span class="crop-examples" data-lang="KO">감자 · 고구마 · 당근 · 마늘 · 생강 · 땅콩</span>
+        <span class="crop-examples" data-lang="EN">potato, sweet potato, carrot, garlic, ginger, peanut</span>
+        <span class="crop-examples" data-lang="VI">khoai tây, khoai lang, cà rốt, tỏi, gừng, lạc</span>
+        <span class="crop-examples" data-lang="TH">มันฝรั่ง มันเทศ แครอท กระเทียม ขิง ถั่วลิสง</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>800~1,000×</b><span data-lang="KO">희석배수</span><span data-lang="EN">dilution</span><span data-lang="VI">tỷ lệ pha</span><span data-lang="TH">อัตราเจือจาง</span></span>
+        <span class="badge"><b>3~5</b><span data-lang="KO">회 살포</span><span data-lang="EN">applications</span><span data-lang="VI">lần phun</span><span data-lang="TH">ครั้ง</span></span>
+        <span class="badge" data-lang="KO">전생육기</span>
+        <span class="badge" data-lang="EN">Whole growth period</span>
+        <span class="badge" data-lang="VI">Toàn bộ giai đoạn sinh trưởng</span>
+        <span class="badge" data-lang="TH">ตลอดช่วงการเจริญเติบโต</span>
+      </div>
+      <div class="effect-tags">
+        <span class="tag" data-lang="KO">수량증대</span><span class="tag" data-lang="KO">과육비대</span>
+        <span class="tag" data-lang="EN">Higher yield</span><span class="tag" data-lang="EN">Larger roots/tubers</span>
+        <span class="tag" data-lang="VI">Năng suất cao hơn</span><span class="tag" data-lang="VI">Củ to hơn</span>
+        <span class="tag" data-lang="TH">ผลผลิตสูงขึ้น</span><span class="tag" data-lang="TH">หัวใหญ่ขึ้น</span>
+      </div>
+    </div>
+
+    <!-- 과채류 -->
+    <div class="crop-card">
+      <div class="crop-head">
+        <span class="crop-name" data-lang="KO">과채류</span>
+        <span class="crop-name" data-lang="EN">Fruiting Vegetables</span>
+        <span class="crop-name" data-lang="VI">Rau ăn quả</span>
+        <span class="crop-name" data-lang="TH">ผักที่กินผล</span>
+        <span class="crop-examples" data-lang="KO">고추 · 수박 · 오이 · 참외 · 토마토 · 딸기 · 배추 · 시금치 · 상추</span>
+        <span class="crop-examples" data-lang="EN">pepper, watermelon, cucumber, melon, tomato, strawberry, cabbage, spinach, lettuce</span>
+        <span class="crop-examples" data-lang="VI">ớt, dưa hấu, dưa chuột, dưa vàng, cà chua, dâu tây, bắp cải, rau bina, xà lách</span>
+        <span class="crop-examples" data-lang="TH">พริก แตงโม แตงกวา แคนตาลูป มะเขือเทศ สตรอเบอร์รี่ กะหล่ำปลี ผักโขม ผักกาดหอม</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>800~1,000×</b><span data-lang="KO">희석배수</span><span data-lang="EN">dilution</span><span data-lang="VI">tỷ lệ pha</span><span data-lang="TH">อัตราเจือจาง</span></span>
+        <span class="badge"><b>3~5</b><span data-lang="KO">회 살포</span><span data-lang="EN">applications</span><span data-lang="VI">lần phun</span><span data-lang="TH">ครั้ง</span></span>
+        <span class="badge" data-lang="KO">전생육기</span>
+        <span class="badge" data-lang="EN">Whole growth period</span>
+        <span class="badge" data-lang="VI">Toàn bộ giai đoạn sinh trưởng</span>
+        <span class="badge" data-lang="TH">ตลอดช่วงการเจริญเติบโต</span>
+      </div>
+      <div class="effect-tags">
+        <span class="tag" data-lang="KO">냉해예방</span><span class="tag" data-lang="KO">생육촉진</span><span class="tag" data-lang="KO">수확량증대</span>
+        <span class="tag" data-lang="EN">Cold-damage prevention</span><span class="tag" data-lang="EN">Faster growth</span><span class="tag" data-lang="EN">Higher yield</span>
+        <span class="tag" data-lang="VI">Chống rét cho cây</span><span class="tag" data-lang="VI">Sinh trưởng nhanh hơn</span><span class="tag" data-lang="VI">Năng suất cao hơn</span>
+        <span class="tag" data-lang="TH">ป้องกันความเสียหายจากความเย็น</span><span class="tag" data-lang="TH">เติบโตเร็วขึ้น</span><span class="tag" data-lang="TH">ผลผลิตสูงขึ้น</span>
+      </div>
+    </div>
+
+    <!-- 특용작물 -->
+    <div class="crop-card">
+      <div class="crop-head">
+        <span class="crop-name" data-lang="KO">특용작물</span>
+        <span class="crop-name" data-lang="EN">Specialty Crops</span>
+        <span class="crop-name" data-lang="VI">Cây trồng đặc sản</span>
+        <span class="crop-name" data-lang="TH">พืชเศรษฐกิจพิเศษ</span>
+        <span class="crop-examples" data-lang="KO">담배 · 인삼 · 참깨</span>
+        <span class="crop-examples" data-lang="EN">tobacco, ginseng, sesame</span>
+        <span class="crop-examples" data-lang="VI">thuốc lá, nhân sâm, vừng</span>
+        <span class="crop-examples" data-lang="TH">ยาสูบ โสม งา</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>800~1,000×</b><span data-lang="KO">희석배수</span><span data-lang="EN">dilution</span><span data-lang="VI">tỷ lệ pha</span><span data-lang="TH">อัตราเจือจาง</span></span>
+        <span class="badge"><b>3~5</b><span data-lang="KO">회 살포</span><span data-lang="EN">applications</span><span data-lang="VI">lần phun</span><span data-lang="TH">ครั้ง</span></span>
+        <span class="badge" data-lang="KO">전생육기</span>
+        <span class="badge" data-lang="EN">Whole growth period</span>
+        <span class="badge" data-lang="VI">Toàn bộ giai đoạn sinh trưởng</span>
+        <span class="badge" data-lang="TH">ตลอดช่วงการเจริญเติบโต</span>
+      </div>
+      <div class="effect-tags">
+        <span class="tag" data-lang="KO">내병성증대</span><span class="tag" data-lang="KO">생육촉진</span><span class="tag" data-lang="KO">수확량증대</span>
+        <span class="tag" data-lang="EN">Disease resistance</span><span class="tag" data-lang="EN">Faster growth</span><span class="tag" data-lang="EN">Higher yield</span>
+        <span class="tag" data-lang="VI">Kháng bệnh tốt hơn</span><span class="tag" data-lang="VI">Sinh trưởng nhanh hơn</span><span class="tag" data-lang="VI">Năng suất cao hơn</span>
+        <span class="tag" data-lang="TH">ต้านทานโรคดีขึ้น</span><span class="tag" data-lang="TH">เติบโตเร็วขึ้น</span><span class="tag" data-lang="TH">ผลผลิตสูงขึ้น</span>
+      </div>
+    </div>
+
+    <!-- 주의점 -->
+    <div class="caution-card">
+      <h3 data-lang="KO">주의점</h3>
+      <h3 data-lang="EN">Precautions</h3>
+      <h3 data-lang="VI">Lưu ý</h3>
+      <h3 data-lang="TH">ข้อควรระวัง</h3>
+      <p data-lang="KO">염기성 농약과 같이 사용하지 마십시오.</p>
+      <p data-lang="EN">Do not mix or apply together with alkaline pesticides.</p>
+      <p data-lang="VI">Không pha hoặc dùng chung với thuốc bảo vệ thực vật có tính kiềm.</p>
+      <p data-lang="TH">ห้ามผสมหรือใช้ร่วมกับสารกำจัดศัตรูพืชที่มีฤทธิ์เป็นด่าง</p>
+      <p data-lang="KO">잘 닫아 서늘하고 건조한 곳에 보관하고 직사광선을 피하십시오.</p>
+      <p data-lang="EN">Keep the container tightly closed and store in a cool, dry place away from direct sunlight.</p>
+      <p data-lang="VI">Đậy kín và bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.</p>
+      <p data-lang="TH">ปิดฝาให้สนิทและเก็บไว้ในที่แห้ง เย็น หลีกเลี่ยงแสงแดดโดยตรง</p>
+    </div>
+
+    <div class="note-block">
+      <p data-lang="KO">모든 작물에는 그 시기에 필요한 양분·일조량·물이 필요하듯, 적절한 시기에 살포하면 성장과 수확량을 높일 수 있습니다.</p>
+      <p data-lang="EN">Just as every crop needs the right nutrients, sunlight, and water at each stage, applying at the right time can improve growth and yield.</p>
+      <p data-lang="VI">Cũng như mỗi cây cần đủ dinh dưỡng, ánh sáng và nước theo từng giai đoạn, phun đúng thời điểm sẽ giúp cây sinh trưởng và cho năng suất tốt hơn.</p>
+      <p data-lang="TH">เช่นเดียวกับที่พืชทุกชนิดต้องการสารอาหาร แสงแดด และน้ำที่เหมาะสมในแต่ละช่วง การฉีดพ่นในเวลาที่ถูกต้องจะช่วยเพิ่มการเจริญเติบโตและผลผลิต</p>
+
+      <p data-lang="KO" style="margin-top:10px;">본 사용설명서는 일반적인 추천 기준입니다. 최고의 효과를 위해서는 토양 상태를 확인하시고 Green Biochem으로 문의해 주세요.</p>
+      <p data-lang="EN" style="margin-top:10px;">This guide is a general recommendation. For best results, check your soil conditions and contact Green Biochem.</p>
+      <p data-lang="VI" style="margin-top:10px;">Hướng dẫn này chỉ mang tính khuyến nghị chung. Để đạt hiệu quả tốt nhất, hãy kiểm tra tình trạng đất và liên hệ Green Biochem.</p>
+      <p data-lang="TH" style="margin-top:10px;">คู่มือนี้เป็นคำแนะนำทั่วไป เพื่อผลลัพธ์ที่ดีที่สุด โปรดตรวจสอบสภาพดินและติดต่อ Green Biochem</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <h3>Green Biochem</h3>
+      <p data-lang="KO">아미노산 기반 액체비료 제조 · 대한민국</p>
+      <p data-lang="EN">Amino-acid based liquid fertilizer manufacturer · South Korea</p>
+      <p data-lang="VI">Nhà sản xuất phân bón lá gốc axit amin · Hàn Quốc</p>
+      <p data-lang="TH">ผู้ผลิตปุ๋ยน้ำฐานกรดอะมิโน · เกาหลีใต้</p>
+      <p>[연락처 / Contact: green0251@hanmail.net · +82-XX-XXXX-XXXX]</p>
+
+      <div class="caution">
+        <span data-lang="KO">본 제품은 등록된 비료관리법 기준에 따라 제조되었습니다. 사용 전 라벨의 안전 수칙을 확인하세요. 어린이·반려동물의 손이 닿지 않는 곳에 보관하세요.</span>
+        <span data-lang="EN">Manufactured under applicable fertilizer regulations. Check label safety instructions before use. Keep out of reach of children and pets.</span>
+        <span data-lang="VI">Được sản xuất theo quy định quản lý phân bón hiện hành. Kiểm tra hướng dẫn an toàn trên nhãn trước khi sử dụng. Để xa tầm tay trẻ em và vật nuôi.</span>
+        <span data-lang="TH">ผลิตตามมาตรฐานการควบคุมปุ๋ยที่บังคับใช้ โปรดตรวจสอบคำแนะนำด้านความปลอดภัยบนฉลากก่อนใช้ เก็บให้พ้นมือเด็กและสัตว์เลี้ยง</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  const buttons = document.querySelectorAll('.langs button');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const lang = btn.dataset.setlang;
+      document.body.className = 'lang-' + lang;
+      buttons.forEach(b=>b.classList.toggle('active', b===btn));
+      document.documentElement.lang = lang.toLowerCase();
+    });
+  });
+</script>
+</body>
+</html>
