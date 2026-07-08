@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang-root>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Biochem — 사용 안내 / Usage Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Noto+Serif:wght@500;600&family=Noto+Serif+KR:wght@500;600&family=Noto+Serif+Thai:wght@500;600&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --moss-900:#132419;
+    --moss-800:#1c3527;
+    --moss-600:#3a6349;
+    --gold:#c69a3d;
+    --soil:#5b4530;
+    --paper:#f2efe3;
+    --paper-2:#e9e4d2;
+    --ink:#1c2a20;
+    --ink-soft:#4b5a4f;
+    --ripple: rgba(198,154,61,0.35);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans','Noto Sans KR','Noto Sans Thai',sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .serif{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;}
+  .brand{font-family:'Fraunces',serif; letter-spacing:0.02em;}
+  [data-lang]{display:none;}
+  body.lang-KO [data-lang="KO"],
+  body.lang-EN [data-lang="EN"],
+  body.lang-VI [data-lang="VI"],
+  body.lang-TH [data-lang="TH"]{display:revert;}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:20;background:var(--moss-900);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;color:var(--paper);}
+  .topbar .brand{font-size:1.15rem;font-weight:600;color:var(--paper);}
+  .topbar .brand span{color:var(--gold);}
+  .langs{display:flex;gap:6px;}
+  .langs button{
+    font-family:'Fraunces',serif;font-size:0.78rem;font-weight:600;
+    background:transparent;border:1px solid rgba(242,239,227,0.35);
+    color:rgba(242,239,227,0.75);border-radius:999px;padding:6px 12px;
+    cursor:pointer;transition:all .2s ease;letter-spacing:.03em;}
+  .langs button.active{background:var(--gold);border-color:var(--gold);color:var(--moss-900);}
+  .langs button:hover{border-color:var(--gold);color:var(--paper);}
+
+  /* hero */
+  .hero{background:var(--moss-900);color:var(--paper);padding:56px 20px 40px;
+    position:relative;overflow:hidden;}
+  .hero-inner{max-width:640px;margin:0 auto;position:relative;z-index:2;}
+  .eyebrow{font-family:'Fraunces',serif;font-size:0.8rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
+  .hero h1{font-size:2rem;line-height:1.28;margin:0 0 14px;font-weight:600;}
+  .hero p{color:#cdd7ce;font-size:1rem;line-height:1.6;margin:0;max-width:46ch;}
+  .ripples{position:absolute;right:-60px;top:-40px;width:280px;height:280px;opacity:.5;}
+
+  .cansvg{display:block;margin:32px auto 0;width:150px;}
+
+  /* sections */
+  section.block{max-width:640px;margin:0 auto;padding:44px 20px;}
+  .notice{background:var(--paper-2);border-left:3px solid var(--gold);
+    padding:14px 16px;border-radius:4px;font-size:0.85rem;color:var(--ink-soft);
+    line-height:1.6;margin-bottom:8px;}
+
+  /* mixing ratio card */
+  .ratio-card{background:var(--moss-800);color:var(--paper);
+    border-radius:14px;padding:32px 24px;display:flex;gap:24px;
+    align-items:center;flex-wrap:wrap;}
+  .ratio-card svg{flex:0 0 auto;width:96px;}
+  .ratio-card h2{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;
+    font-size:1.15rem;margin:0 0 8px;font-weight:600;}
+  .ratio-num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--gold);
+    font-weight:600;margin:2px 0 8px;}
+  .ratio-card p{margin:0;font-size:0.88rem;color:#d3dccf;line-height:1.6;}
+
+  h2.section-title{font-family:'Noto Serif','Noto Serif KR','Noto Serif Thai',serif;
+    font-size:1.4rem;font-weight:600;margin:0 0 26px;}
+
+  /* steps */
+  .step{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--paper-2);}
+  .step:last-child{border-bottom:none;}
+  .step-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;
+    color:var(--gold);flex:0 0 46px;}
+  .step h3{margin:2px 0 6px;font-size:1.02rem;font-weight:700;color:var(--ink);}
+  .step p{margin:0;font-size:0.92rem;line-height:1.65;color:var(--ink-soft);}
+
+  footer{background:var(--soil);color:#ece4d6;padding:34px 20px;}
+  .footer-inner{max-width:640px;margin:0 auto;}
+  footer h3{font-family:'Fraunces',serif;margin:0 0 6px;color:var(--paper);font-size:1.05rem;}
+  footer p{margin:0 0 4px;font-size:0.85rem;line-height:1.6;color:#d8cfbe;}
+  .caution{margin-top:18px;padding-top:18px;border-top:1px solid rgba(236,228,214,0.2);
+    font-size:0.78rem;color:#c7bda8;line-height:1.7;}
+
+  @media (max-width:480px){
+    .hero h1{font-size:1.6rem;}
+    .ratio-card{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body class="lang-KO">
+
+  <div class="topbar">
+    <div class="brand">GREEN<span>BIOCHEM</span></div>
+    <div class="langs">
+      <button data-setlang="KO" class="active">KR</button>
+      <button data-setlang="EN">EN</button>
+      <button data-setlang="VI">VI</button>
+      <button data-setlang="TH">TH</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <svg class="ripples" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="none" stroke="#c69a3d" stroke-opacity="0.5" stroke-width="2"/><circle cx="100" cy="100" r="55" fill="none" stroke="#c69a3d" stroke-opacity="0.35" stroke-width="2"/><circle cx="100" cy="100" r="80" fill="none" stroke="#c69a3d" stroke-opacity="0.2" stroke-width="2"/></svg>
+    <div class="hero-inner">
+      <p class="eyebrow" data-lang="KO">아미노산 액체비료 사용 안내</p>
+      <p class="eyebrow" data-lang="EN">Amino Acid Liquid Fertilizer — Usage Guide</p>
+      <p class="eyebrow" data-lang="VI">Hướng dẫn sử dụng phân bón lá axit amin</p>
+      <p class="eyebrow" data-lang="TH">คู่มือการใช้ปุ๋ยน้ำกรดอะมิโน</p>
+
+      <h1 data-lang="KO">올바르게 희석하고<br>제때 뿌리세요</h1>
+      <h1 data-lang="EN">Dilute it right.<br>Spray it on time.</h1>
+      <h1 data-lang="VI">Pha đúng tỷ lệ.<br>Phun đúng thời điểm.</h1>
+      <h1 data-lang="TH">ผสมให้ถูกอัตราส่วน<br>ฉีดพ่นให้ตรงเวลา</h1>
+
+      <p data-lang="KO">18종 이상의 L-형 아미노산과 NPK, 다당류, 부식산, 미량요소가 균형 있게 배합된 Green Biochem 액체비료의 표준 살포 가이드입니다.</p>
+      <p data-lang="EN">The standard application guide for Green Biochem's liquid fertilizer, formulated with 18+ types of L-amino acids, NPK, polysaccharides, humic acid, and micronutrients.</p>
+      <p data-lang="VI">Hướng dẫn sử dụng tiêu chuẩn cho phân bón lá của Green Biochem, chứa hơn 18 loại axit amin dạng L, NPK, polysaccharide, axit humic và vi lượng.</p>
+      <p data-lang="TH">คู่มือการใช้งานมาตรฐานสำหรับปุ๋ยน้ำ Green Biochem ที่มีส่วนผสมของกรดอะมิโนชนิด L มากกว่า 18 ชนิด, NPK, โพลีแซคคาไรด์, กรดฮิวมิก และธาตุอาหารรอง</p>
+
+      <svg class="cansvg" viewBox="0 0 160 120" fill="none" stroke="#c69a3d" stroke-width="2.5">
+        <path d="M20 60 h60 l25 -18 h20 v10 h-14 l-20 14 v6 h-71 z" />
+        <path d="M118 46 v14" />
+        <circle cx="126" cy="42" r="2" fill="#c69a3d" stroke="none"/>
+        <circle cx="134" cy="48" r="1.6" fill="#c69a3d" stroke="none"/>
+        <circle cx="130" cy="56" r="1.4" fill="#c69a3d" stroke="none"/>
+        <path d="M20 60 v14 a8 8 0 0 0 8 8 h44 a8 8 0 0 0 8 -8 v-14" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="notice" data-lang="KO">※ 아래 희석 비율·주기는 예시 수치입니다. 정식 배포 전 자사 시험성적서·작물별 실증 데이터로 반드시 확인 후 수정해 주세요.</div>
+    <div class="notice" data-lang="EN">※ The ratio and frequency below are placeholder examples. Please confirm and update them with your own test data before distribution.</div>
+    <div class="notice" data-lang="VI">※ Tỷ lệ và tần suất bên dưới chỉ mang tính ví dụ. Vui lòng xác nhận bằng dữ liệu thử nghiệm thực tế trước khi phân phối.</div>
+    <div class="notice" data-lang="TH">※ อัตราส่วนและความถี่ด้านล่างเป็นเพียงตัวอย่าง โปรดยืนยันด้วยข้อมูลการทดสอบจริงก่อนเผยแพร่</div>
+  </section>
+
+  <section class="block" style="padding-top:0;">
+    <div class="ratio-card">
+      <svg viewBox="0 0 100 120" fill="none" stroke="#f2efe3" stroke-width="3">
+        <path d="M30 10 h40 v18 l22 68 a6 6 0 0 1 -6 8 h-72 a6 6 0 0 1 -6 -8 l22 -68 z"/>
+        <path d="M18 84 h64" stroke="#c69a3d"/>
+        <line x1="30" y1="10" x2="30" y2="28"/>
+        <line x1="70" y1="10" x2="70" y2="28"/>
+      </svg>
+      <div>
+        <h2 data-lang="KO">희석 비율 (예시)</h2>
+        <h2 data-lang="EN">Mixing Ratio (example)</h2>
+        <h2 data-lang="VI">Tỷ lệ pha (ví dụ)</h2>
+        <h2 data-lang="TH">อัตราส่วนผสม (ตัวอย่าง)</h2>
+        <div class="ratio-num">물 500ℓ : 원액 1ℓ</div>
+        <p data-lang="KO">엽면 살포 기준. 관주(토양 관수) 시에는 별도 비율을 적용하세요.</p>
+        <p data-lang="EN">Based on foliar spraying. Use a different ratio for soil drenching.</p>
+        <p data-lang="VI">Áp dụng cho phun lá. Với tưới gốc, cần dùng tỷ lệ khác.</p>
+        <p data-lang="TH">ใช้สำหรับการฉีดพ่นทางใบ หากรดโคนต้นให้ใช้อัตราส่วนอื่น</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="section-title" data-lang="KO">살포 방법</h2>
+    <h2 class="section-title" data-lang="EN">How to Apply</h2>
+    <h2 class="section-title" data-lang="VI">Cách sử dụng</h2>
+    <h2 class="section-title" data-lang="TH">วิธีการใช้</h2>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <h3 data-lang="KO">희석하기</h3>
+        <h3 data-lang="EN">Dilute</h3>
+        <h3 data-lang="VI">Pha loãng</h3>
+        <h3 data-lang="TH">เจือจาง</h3>
+        <p data-lang="KO">깨끗한 물에 제품을 위 비율대로 희석하고, 분무 전 골고루 저어주세요.</p>
+        <p data-lang="EN">Dilute the product in clean water at the ratio above, and stir thoroughly before spraying.</p>
+        <p data-lang="VI">Pha sản phẩm vào nước sạch theo tỷ lệ trên và khuấy đều trước khi phun.</p>
+        <p data-lang="TH">เจือจางผลิตภัณฑ์ในน้ำสะอาดตามอัตราส่วนด้านบน แล้วคนให้เข้ากันก่อนฉีดพ่น</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <h3 data-lang="KO">살포하기</h3>
+        <h3 data-lang="EN">Spray</h3>
+        <h3 data-lang="VI">Phun</h3>
+        <h3 data-lang="TH">ฉีดพ่น</h3>
+        <p data-lang="KO">잎 앞뒤가 고르게 젖도록 분무기로 살포합니다. 개화기·착과기에는 살포량을 줄이세요.</p>
+        <p data-lang="EN">Spray evenly so both sides of the leaves are wetted. Reduce volume during flowering and fruit-setting stages.</p>
+        <p data-lang="VI">Phun đều để cả hai mặt lá đều ướt. Giảm lượng phun trong giai đoạn ra hoa và đậu quả.</p>
+        <p data-lang="TH">ฉีดพ่นให้ทั่วทั้งด้านบนและด้านล่างของใบ ลดปริมาณในช่วงออกดอกและติดผล</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <h3 data-lang="KO">살포 시기</h3>
+        <h3 data-lang="EN">Timing</h3>
+        <h3 data-lang="VI">Thời điểm</h3>
+        <h3 data-lang="TH">ช่วงเวลา</h3>
+        <p data-lang="KO">직사광선을 피해 이른 아침이나 해 질 무렵에 살포하세요. 강우 예보 시에는 살포를 피하세요.</p>
+        <p data-lang="EN">Apply in early morning or evening, avoiding direct sunlight. Do not spray before expected rainfall.</p>
+        <p data-lang="VI">Phun vào sáng sớm hoặc chiều tối, tránh ánh nắng trực tiếp. Không phun trước khi dự báo có mưa.</p>
+        <p data-lang="TH">ฉีดพ่นช่วงเช้าตรู่หรือเย็น หลีกเลี่ยงแสงแดดจัด ไม่ควรฉีดพ่นก่อนฝนตก</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <h3 data-lang="KO">주기 및 보관</h3>
+        <h3 data-lang="EN">Frequency &amp; Storage</h3>
+        <h3 data-lang="VI">Tần suất &amp; Bảo quản</h3>
+        <h3 data-lang="TH">ความถี่และการเก็บรักษา</h3>
+        <p data-lang="KO">7~10일 간격으로 반복 살포하며, 원액은 직사광선을 피해 서늘한 곳에 보관하세요.</p>
+        <p data-lang="EN">Reapply every 7–10 days. Store the concentrate in a cool place away from direct sunlight.</p>
+        <p data-lang="VI">Phun lặp lại mỗi 7–10 ngày. Bảo quản dung dịch đậm đặc ở nơi mát, tránh ánh nắng trực tiếp.</p>
+        <p data-lang="TH">ฉีดพ่นซ้ำทุก 7–10 วัน เก็บสารเข้มข้นไว้ในที่เย็น หลีกเลี่ยงแสงแดดโดยตรง</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <h3>Green Biochem</h3>
+      <p data-lang="KO">아미노산 기반 액체비료 제조 · 대한민국</p>
+      <p data-lang="EN">Amino-acid based liquid fertilizer manufacturer · South Korea</p>
+      <p data-lang="VI">Nhà sản xuất phân bón lá gốc axit amin · Hàn Quốc</p>
+      <p data-lang="TH">ผู้ผลิตปุ๋ยน้ำฐานกรดอะมิโน · เกาหลีใต้</p>
+      <p>[연락처 / Contact: email@example.com · +82-XX-XXXX-XXXX]</p>
+
+      <div class="caution">
+        <span data-lang="KO">본 제품은 등록된 비료관리법 기준에 따라 제조되었습니다. 사용 전 라벨의 안전 수칙을 확인하세요. 어린이·반려동물의 손이 닿지 않는 곳에 보관하세요.</span>
+        <span data-lang="EN">Manufactured under applicable fertilizer regulations. Check label safety instructions before use. Keep out of reach of children and pets.</span>
+        <span data-lang="VI">Được sản xuất theo quy định quản lý phân bón hiện hành. Kiểm tra hướng dẫn an toàn trên nhãn trước khi sử dụng. Để xa tầm tay trẻ em và vật nuôi.</span>
+        <span data-lang="TH">ผลิตตามมาตรฐานการควบคุมปุ๋ยที่บังคับใช้ โปรดตรวจสอบคำแนะนำด้านความปลอดภัยบนฉลากก่อนใช้ เก็บให้พ้นมือเด็กและสัตว์เลี้ยง</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  const buttons = document.querySelectorAll('.langs button');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const lang = btn.dataset.setlang;
+      document.body.className = 'lang-' + lang;
+      buttons.forEach(b=>b.classList.toggle('active', b===btn));
+      document.documentElement.lang = lang.toLowerCase();
+    });
+  });
+</script>
+</body>
+</html>
